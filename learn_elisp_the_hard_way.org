@@ -1,0 +1,9 @@
+#+TITLE: Learn Elisp The Hard Way
+
+* lesson-2-1-first-elisp-programme
+#+begin_src emacs-lisp
+(+ 1 2)
+#+end_src
+
+#+RESULTS:
+: 3
