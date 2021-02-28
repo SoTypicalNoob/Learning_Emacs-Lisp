@@ -1,1 +1,3 @@
 #+TITLE: README
+Practicing emacs-lisp.
+Source: [[https:https://github.com/hypernumbers/learn_elisp_the_hard_way][hypernumbers/learn_elisp_the_hard_way]]
