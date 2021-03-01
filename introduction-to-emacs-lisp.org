@@ -1,0 +1,153 @@
+#+TITLE: Introduction To Emacs Lisp
+Notice that this is just a practice and it has no value. This is a way for me to get familiar with git/magit/elisp. The practices are based on the video series by *System Crafters* youtube channel. I just type what he was talking about to get more focused on the topic.
+For more details see: [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPQtn7FQEF3D7sroZbXuPZ7][Learning Emacs Lisp (by System Crafters)]]
+* Learning Emacs Lisp #1
+#+begin_src emacs-lisp
+(defun the-meaning-of-life (answer)
+  (message "The answer is %s" answer))
+#+end_src
+#+begin_src emacs-lisp
+(list 1 2 3
+      4 5 6
+      7 8 9)
+#+end_src
+** Lisp Types
++ Strings
++ Numbers (both integer and floeag)
++ Symbols
++ Cons Cells
++ Arrays and Vectors
++ etc...
+** Emacs Specific Types
++ Buffers
+  #+begin_src emacs-lisp
+(switch-to-buffer (other-buffer))
+  #+end_src
++ Windows
++ Frames
++ Threads
++ Keymaps
++ etc...
+** Forms and Evaluation
+*** How evaluation works
+Different for:
++ Lists
++ Symbols
++ Other objects
+*self evaluating*
+#+begin_src emacs-lisp
+;number
+777
+#+end_src
+
+#+RESULTS:
+: 777
+
+#+begin_src emacs-lisp
+;string
+"This is a string"
+#+end_src
+
+#+RESULTS:
+: This is a string
+
+*not self evaluating*
+#+begin_src emacs-lisp
+buffer-file-name
+#+end_src
+
+#+RESULTS:
+: /home/n00b/git/Learning_Emacs-Lisp/introduction-to-emacs-lisp.org
+
+*evaluates a function*
+#+begin_src emacs-lisp
+(+ 300 11)
+#+end_src
+
+#+RESULTS:
+: 311
+
+#+begin_src emacs-lisp
+(300 11)
+#+end_src
+*result:* invalid function 300
+
+*Some things cannot be avaluated*
+
+*** Symbols
+It is an object, but it's not self-evaluating.
++ Convert from one type to another: =bui-keyword->symbol=
++ Define a namespace for the simbol: =efs/some-name=
++ Indicates a global variable: =*pcache-repositories*=
++ Check if something is equal to something else: =string==
+Evaluated symbol returns its value
+#+begin_src emacs-lisp
+buffer-file-name
+#+end_src
+
+#+RESULTS:
+: /home/n00b/git/Learning_Emacs-Lisp/introduction-to-emacs-lisp.org
+
+Function names cannot be evaluated:
+#+begin_src emacs-lisp
+get-file-buffer
+#+end_src
+*results:* eval: Symbol’s value as variable is void: get-file-buffer
+*** Infix vs Prefix
+#+begin_src emacs-lisp
+(+ 300 (- 12 1))
+#+end_src
+
+#+RESULTS:
+: 311
+
+Compared to a conventional programming language:
+(300 + 11) * 50
+*** Exercises
+#+begin_src emacs-lisp
+;number
+7
+#+end_src
+
+#+RESULTS:
+: 7
+#+begin_src emacs-lisp
+(* 11 33)
+#+end_src
+
+#+RESULTS:
+: 363
+#+begin_src emacs-lisp
+;simple list
+'(1 2 3)
+#+end_src
+#+begin_src emacs-lisp
+;another list definition
+(list 1 2 3)
+#+end_src
+#+begin_src emacs-lisp
+(car (car '(1 2 3)))
+#+end_src
+#+begin_src emacs-lisp
+;vector
+[1 2 3]
+#+end_src
+
+#+begin_src emacs-lisp
+(stringp "Is this a string?")
+#+end_src
+
+#+RESULTS:
+: t
+#+begin_src emacs-lisp
+(stringp 55)
+#+end_src
+
+#+RESULTS:
+(No result becasue 'nil' is not an output. (?))
+#+begin_src emacs-lisp
+(type-of 55)
+#+end_src
+
+#+RESULTS:
+: integer
