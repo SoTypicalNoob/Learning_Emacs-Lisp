@@ -151,3 +151,521 @@ Compared to a conventional programming language:
 
 #+RESULTS:
 : integer
+* Learning Emacs Lisp #2
+** Equality
+*** eq
+#+begin_src emacs-lisp
+(eq 1 1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(eq 3.1 3.1)
+#+end_src
+
+#+RESULTS:
+~nil~
+
+#+begin_src emacs-lisp
+(eq "string" "string")
+#+end_src
+
+#+RESULTS:
+~nil~
+
+#+begin_src emacs-lisp
+(eq '(1 2 3) '(1 2 3))
+#+end_src
+
+#+RESULTS:
+~nil~
+
+#+begin_src emacs-lisp
+(setq test-val '(1 2 3))
+(eq test-val test-val)
+#+end_src
+
+#+RESULTS:
+: t
+
+*** eql
+#+begin_src emacs-lisp
+(eql 1 1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(eql 3.1 3.1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(eql "string" "string")
+#+end_src
+
+#+RESULTS:
+~nil~
+
+#+begin_src emacs-lisp
+(eql '(1 2 3) '(1 2 3))
+#+end_src
+
+#+RESULTS:
+~nil~
+
+#+begin_src emacs-lisp
+(setq test-val '(1 2 3))
+(eql test-val test-val)
+#+end_src
+
+#+RESULTS:
+: t
+
+*** equal
+#+begin_src emacs-lisp
+(equal 1 1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(equal 3.1 3.1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(equal "string" "string")
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(equal '(1 2 3) '(1 2 3))
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(setq test-val '(1 2 3))
+(eq test-val test-val)
+#+end_src
+
+#+RESULTS:
+: t
+** Numbers
+- Integers - Whole numbers: 1
+- Floating point numbers - Numbers with a decimal
+** Operations
+#+begin_src emacs-lisp
+(+ 5 5)
+#+end_src
+
+#+RESULTS:
+: 10
+
+#+begin_src emacs-lisp
+(% 11 5)
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src emacs-lisp
+(mod 11.1 5)
+#+end_src
+
+#+RESULTS:
+: 1.0999999999999996
+
+Incrementation function (for loops, e.g.)
+#+begin_src emacs-lisp
+(1+ 5)
+#+end_src
+
+#+RESULTS:
+: 6
+
+#+begin_src emacs-lisp
+(1- 5)
+#+end_src
+
+#+RESULTS:
+: 4
+
+Convert between ingeters and floats:
+- truncate
+- round
+- floor
+- ceiling
+
+#+begin_src emacs-lisp
+(truncate 1.2)
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src emacs-lisp
+(truncate -1.2)
+#+end_src
+
+#+RESULTS:
+: -1
+
+#+begin_src emacs-lisp
+(floor 1.2)
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src emacs-lisp
+(floor -1.2)
+#+end_src
+
+#+RESULTS:
+: -2
+
+#+begin_src emacs-lisp
+(ceiling 1.2)
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src emacs-lisp
+(round 1.5)
+#+end_src
+
+#+RESULTS:
+: 2
+
+** Predicates
+#+begin_src emacs-lisp
+(integerp 1)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(numberp "text")
+#+end_src
+
+#+RESULTS:
+~nil~
+
+** Comparison
+#+begin_src emacs-lisp
+(= 1 1.0)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(max 1 5 6 4 2)
+#+end_src
+
+#+RESULTS:
+: 6
+
+#+begin_src emacs-lisp
+(min 34 65 2 -123)
+#+end_src
+
+#+RESULTS:
+: -123
+
+** Characters
+#+begin_src emacs-lisp
+?A
+#+end_src
+
+#+RESULTS:
+: 65
+
+Unicode:
+#+begin_src emacs-lisp
+?\N{U+E0}
+#+end_src
+
+#+RESULTS:
+: 224
+
+Control and meta char syntax:
+#+begin_src emacs-lisp
+?\C-c
+#+end_src
+
+#+RESULTS:
+: 3
+
+#+begin_src emacs-lisp
+(kbd "C-c")
+#+end_src
+
+#+RESULTS:
+: 
+
+** Comparisons
+#+begin_src emacs-lisp
+(char-equal ?A ?A)
+#+end_src
+
+#+RESULTS:
+: t
+
+** Sequences
+
+** Strings
+
+#+begin_src emacs-lisp
+(make-string 5 ?a)
+#+end_src
+
+#+RESULTS:
+: aaaaa
+
+#+begin_src emacs-lisp
+(string ?H ?e ?l ?l ?o ?!)
+#+end_src
+
+#+RESULTS:
+: Hello!
+
+#+begin_src emacs-lisp
+(string= "hello" "hello")
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(string< "bello" "hello")
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(string> "hello" "bello")
+#+end_src
+
+#+RESULTS:
+: t
+
+*** Operations
+#+begin_src emacs-lisp
+(substring "hello" 0 4)
+#+end_src
+
+#+RESULTS:
+: hell
+
+#+begin_src emacs-lisp
+(concat "hello " "bello")
+#+end_src
+
+#+RESULTS:
+: hello bello
+
+This is based on a pattern. ???
+#+begin_src emacs-lisp
+(split-string "Hello bello" "[o]")
+#+end_src
+
+#+RESULTS:
+
+*** Formatting
+
+** Cons Cells
+#+begin_src emacs-lisp
+(cons 1 2)
+#+end_src
+
+#+RESULTS:
+: (1 . 2)
+
+#+begin_src emacs-lisp
+(cons 1 2)
+(car '(1 . 2))
+#+end_src
+
+#+RESULTS:
+: 1
+
+** Arrays
+
+#+begin_src emacs-lisp
+(setq some-array [1 2 3 4])
+(aset some-array 1 5)
+some-array
+#+end_src
+
+#+RESULTS:
+: [1 5 3 4]
+
+#+begin_src emacs-lisp
+(setq some-array "Hello!")
+(aset some-array 3 ?b)
+some-array
+#+end_src
+
+#+RESULTS:
+: Helbo!
+
+** Logic Expressions
+
+#+begin_src emacs-lisp
+(if t 'true 'false)
+(if 5 'true 'false)
+(if "text" 'ture 'false)
+(if nil 'ture 'false) ; false - nil
+#+end_src
+
+#+RESULTS:
+: true
+
+#+begin_src emacs-lisp
+(not t)
+(not 3)
+(not nil)
+#+end_src
+
+#+RESULTS:
+: t
+
+#+begin_src emacs-lisp
+(and t t t t 'foo) ; 'foo
+(and t t t 'foo t)
+(and nil 'something) ; nil
+#+end_src
+
+#+RESULTS:
+
+#+begin_src emacs-lisp
+(or nil 'something) ; 'something
+(or nil 'something t) ; 'something
+(or (- 3 3) (+2 0))
+#+end_src
+
+#+RESULTS:
+: 0
+
+** Conditional Expression
+
+#+begin_src emacs-lisp
+(if t 5
+  (message "true branch")
+  (+ 2 2))
+#+end_src
+
+#+RESULTS:
+: 5
+
+#+begin_src emacs-lisp
+(if t ; nil
+    (progn
+      (message "test")
+      5)
+  (message "someting else")
+  (+ 2 2))
+#+end_src
+
+#+RESULTS:
+: 4
+
+#+begin_src emacs-lisp
+(when (> 2 1) 'foo) ; foo
+(unless (> 2 1) 'foo) ; nil
+#+end_src
+
+#+RESULTS:
+
+#+begin_src emacs-lisp
+(user-login-name)
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src emacs-lisp
+(setq a 1)
+(setq a 2)
+(setq a -1)
+
+(cond ((eql a 1) "Equal to 1")
+      ((> a 1)   "Greater than 1")
+      (t         "Something else!"))
+#+end_src
+
+#+RESULTS:
+: Something else!
+
+** Loops
+
+#+begin_src emacs-lisp
+(setq my-loop-counter 0)
+
+(while (< my-loop-counter 5)
+  (message "I'm looping! %d" my-loop-counter)
+  (setq my-loop-counter (1+ my-loop-counter)))
+#+end_src
+
+#+RESULTS:
+I’m looping! 0
+I’m looping! 1
+I’m looping! 2
+I’m looping! 3
+I’m looping! 4
+
+#+begin_src emacs-lisp
+(dotimes (count 5)
+        (message "I'm looping with dotimes. %d" count))
+#+end_src
+
+#+RESULTS:
+I’m looping with dotimes. 0
+I’m looping with dotimes. 1
+I’m looping with dotimes. 2
+I’m looping with dotimes. 3
+I’m looping with dotimes. 4
+
+#+begin_src emacs-lisp
+(dolist (item '("one" "two" "three" "four" "five"))
+        (message "Item %s" item))
+#+end_src
+
+#+RESULTS:
+Item one
+Item two
+Item three
+Item four
+Item five
+
+#+begin_src emacs-lisp
+(defun efs/recursion-test (counter limit)
+  (when (< counter limit)
+    (message "Recursion: %d" counter)
+    (efs/recursion-test (1+ counter) limit)))
+(efs/recursion-test 0 5)
+#+end_src
+
+#+RESULTS:
+Recursion: 0
+Recursion: 1
+Recursion: 2
+Recursion: 3
+Recursion: 4
