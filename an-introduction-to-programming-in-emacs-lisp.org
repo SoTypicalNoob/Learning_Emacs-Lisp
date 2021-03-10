@@ -1,0 +1,7 @@
+#+TITLE: An Introduction To Programming In Emacs Lisp
+This is the practices from the book: /An Introduction to Programming in Emacs Lisp/ by Robert J. Chassell.
+
+* List Processing
+#+begin_src emacs-lisp
+(message ("rose" "violet" "daisy" "buttercup"))
+#+end_src
