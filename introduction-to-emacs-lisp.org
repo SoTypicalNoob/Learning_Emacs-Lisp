@@ -669,3 +669,87 @@ Recursion: 1
 Recursion: 2
 Recursion: 3
 Recursion: 4
+
+* Defining Functions and Commands - Learning Emacs Lisp #3
+Function is a reusable piece of code.
+
+** Defining a function
+#+begin_src emacs-lisp
+(defun do-some-math (x y)
+  (* (+ x 20)
+     (- y 10)))
+(do-some-math 100 50)
+#+end_src
+
+#+RESULTS:
+: 4800
+
+** Function arguments
+*** Optional argument
+#+begin_src emacs-lisp
+(defun multiply-maybe (x &optional y z)
+  (* x
+     (or y 1)
+     (or z 1)))
+(multiply-maybe 5)
+(multiply-maybe 5 2 10)
+#+end_src
+
+#+RESULTS:
+: 100
+
+*** Rest arguments
+#+begin_src emacs-lisp
+(defun multiply-many(x &rest operands)
+  (dolist (operand operands)
+          (when operand
+               (setq x (* x operand))))
+  x)
+(multiply-many 5 10)
+#+end_src
+
+#+RESULTS:
+: 50
+
+*** Documentation function
+after defun
+*** Function without names
+#+begin_src emacs-lisp
+(lambda (x y)
+  (+ 100 x y))
+#+end_src
+#+begin_src emacs-lisp
+((lambda (x y)
+  (+ 100 x y))
+ 10 20)
+#+end_src
+
+#+RESULTS:
+: 130
+
+*** Invoking functions
+Usual way:
+#+begin_src emacs-lisp
+(+ 2 2)
+#+end_src
+
+#+RESULTS:
+: 4
+
+#+begin_src emacs-lisp
+(funcall '+ 2 2)
+#+end_src
+
+#+RESULTS:
+: 4
+
+#+begin_src emacs-lisp
+(defun gimmie-function (fun x)
+  (message "Function: %s -- Result: %d"
+           fun
+           (funcall fun x)))
+(gimmie-function)
+#+end_src
+
+#+RESULTS:
+: gimmie-function
